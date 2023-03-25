@@ -10,6 +10,8 @@ curl https://raw.githubusercontent.com/p7e4/FeedPush/master/feedpush.py -O
 pip install feedparser aiohttp[speedups] tomli
 python3 feedpush.py -c demo.toml
 ```
+后台运行: `nohup python3 feedpush.py -c demo.toml > tmp.log 2>&1 &`
+
 
 ## 配置文件
 
