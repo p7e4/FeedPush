@@ -37,7 +37,7 @@ async def worker(session, feeds, messages, history):
             async with session.get(item["url"], ssl=False) as resp:
                 feed = feedparser.parse(await resp.text())
         except Exception as e:
-            logger.error(e)
+            logger.error(f"{item['url']}: {e}")
             continue
         for entry in feed["entries"]:
             if entry["link"] not in history.get(item["url"], []):
@@ -91,7 +91,7 @@ async def sendMessage(session, webhooks, messages):
     # 钉钉 https://open.dingtalk.com/document/orgapp/custom-robot-access
     # 飞书 https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN
     # 蓝信 https://openapi.lanxin.cn/doc/#/quick-start/bot-dev/webhook-bot-overview
-    MarkDownTemplate = "【$feedName】 [$title]($link)\n\n$showText"
+    MarkDownTemplate = "【$feedName】[$title]($link)\n\n$showText"
     async def send(code):
         try:
             async with session.post(webhook["url"], params=webhook.get("_sign", {}), json=data) as resp:
@@ -141,7 +141,7 @@ async def sendMessage(session, webhooks, messages):
                     "msgType": "text",
                     "msgData": {
                         "text": {
-                            "content": msg["showText"].rstrip() if msg["onlyText"] else f"【{msg['feedName']}】 {msg['title']}\n{msg['showText']}{msg['link']}"
+                            "content": msg["showText"].rstrip() if msg["onlyText"] else f"【{msg['feedName']}】{msg['title']}\n{msg['showText']}{msg['link']}"
                         }
                     }
                 }

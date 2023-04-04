@@ -28,7 +28,7 @@ webhooks = [
     {url="xxxx", sign="xxxx"}
 ]
 
-# rss订阅源, 可配置项: name显示名称, showText显示内容, onlyText仅显示内容(不包括标题链接等), showAuthor使用author字段代替订阅原标题
+# rss订阅源, 可配置项: name显示名称, showText显示内容, onlyText仅显示内容(不包括标题链接等), showAuthor使用author字段代替订阅源名称
 feeds = [
     "https://www.solidot.org/index.rss",
     {url="https://www.solidot.org/index.rss", showText=true, name="奇客Solidot"}
@@ -45,6 +45,16 @@ feeds = [
 ### 如何防止第一次运行发送大量消息
 
 使用`-s`选项，这会这会忽略第一轮的消息，但是不影响之后的消息推送
+
+
+### 为什么显示配置文件解析错误
+
+多半是少了结尾逗号, 否则建议对照[toml](https://toml.io/cn/)格式检查一遍
+
+
+### 更改了配置文件是实时生效吗?
+
+不是，需要手动重新启动
 
 
 
